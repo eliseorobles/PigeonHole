@@ -1,0 +1,58 @@
+name: GameCheat
+options:
+  bundleIdPrefix: com.gamecheat
+  deploymentTarget:
+    iOS: "17.0"
+  xcodeVersion: "16.0"
+  generateEmptyDirectories: true
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    SWIFT_STRICT_CONCURRENCY: complete
+    IPHONEOS_DEPLOYMENT_TARGET: "17.0"
+targets:
+  GameCheat:
+    type: application
+    platform: iOS
+    sources:
+      - GameCheat
+      - path: ThirdParty/Stockfish/src
+        excludes:
+          - main.cpp
+    settings:
+      base:
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: true
+        INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: true
+        INFOPLIST_KEY_UILaunchScreen_Generation: true
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+        GENERATE_INFOPLIST_FILE: true
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: 1
+        CODE_SIGN_STYLE: Automatic
+        SUPPORTED_PLATFORMS: "iphoneos iphonesimulator"
+        SUPPORTS_MACCATALYST: false
+        SWIFT_OBJC_BRIDGING_HEADER: GameCheat/BridgingHeader.h
+        CLANG_CXX_LANGUAGE_STANDARD: gnu++17
+        HEADER_SEARCH_PATHS: "$(inherited) $(SRCROOT)/ThirdParty/Stockfish/src"
+  GameCheatTests:
+    type: bundle.unit-test
+    platform: iOS
+    hostApplication: GameCheat
+    sources:
+      - GameCheatTests
+    dependencies:
+      - target: GameCheat
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: true
+        SUPPORTED_PLATFORMS: "iphoneos iphonesimulator"
+schemes:
+  GameCheat:
+    build:
+      targets:
+        GameCheat: all
+        GameCheatTests: [test]
+    test:
+      targets:
+        - name: GameCheatTests
